@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <!-- 引入配置文件 -->
+    <!--<properties resource="init.properties"/>-->
+    <!-- 一个数据库一个context -->
+    <context id="my" targetRuntime="MyBatis3">
+        <commentGenerator>
+            <property name="suppressDate" value="false"/>
+            <property name="suppressAllComments" value="true"/>
+        </commentGenerator>
+        <!-- jdbc连接 -->
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://118.25.229.139:3306/hjh_prj" userId="hjh_pro"
+                        password="0123321hj!"/>
+        <!-- 生成实体类地址 -->
+        <javaModelGenerator targetPackage="com.hjh.wht.repository.model"
+                            targetProject="src/main/java/com/hjh/wht/repository">
+            <property name="enableSubPackages" value="true"/>
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+        <!-- 生成mapper文件 -->
+        <sqlMapGenerator targetPackage="mapper"
+                         targetProject="src/main/resources/mybatis/mapper">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+        <!-- 生成mapxml文件 -->
+        <javaClientGenerator targetPackage="dao"
+                             targetProject="src/main/java/com/hjh/wht/repository" type="XMLMAPPER">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+
+        <!-- 配置表信息 -->
+        <!--下面你可以重复添加对应多个表-->
+        <!--后面选项：是否生成 example类 -->
+        <table tableName="user_question" domainObjectName="UserQuestionPo"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false">
+        </table>
+
+    </context>
+</generatorConfiguration>

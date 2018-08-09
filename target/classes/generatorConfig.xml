@@ -14,8 +14,8 @@
         </commentGenerator>
         <!-- jdbc连接 -->
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                        connectionURL="jdbc:mysql://118.25.229.139:3306/hjh_prj" userId="hjh_pro"
-                        password="0123321hj!"/>
+                        connectionURL="xxx" userId="hjh_pro"
+                        password="xxx"/>
         <!-- 生成实体类地址 -->
         <javaModelGenerator targetPackage="com.hjh.wht.repository.model"
                             targetProject="src/main/java/com/hjh/wht/repository">

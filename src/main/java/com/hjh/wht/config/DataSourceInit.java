@@ -28,16 +28,23 @@ public class DataSourceInit {
     }
 
     @Bean(name="sessionFactory")
-    public SqlSessionFactoryBean initSqlSessionFactory(){
+    public SqlSessionFactoryBean initSqlSessionFactory() throws Exception{
         SqlSessionFactoryBean sqlSessionFactoryBean=new SqlSessionFactoryBean();
         sqlSessionFactoryBean.setDataSource(initDataSource());
-        //PathMatchingResourcePatternResolver resolver=new PathMatchingResourcePatternResolver();
-        Resource[] mapperResources=new Resource[]{new ClassPathResource("classpath:/mybatis/mapper/*Mapper.xml")};
-        //Resource configResource=new ClassPathResource("classpath:mconfig.xml");
-        PathMatchingResourcePatternResolver resolver=new PathMatchingResourcePatternResolver();
 
-        sqlSessionFactoryBean.setMapperLocations(mapperResources);
+        //使用classPathResource不能使用classpath:指定路径，因为当前加载类的classLoader执行相对或者绝对地址查找资源。
+//        Resource[] mapperResources=new Resource[]{new ClassPathResource("/mybatis/mapper/UserQuestionPoMapper.xml")};
+//        Resource configResource=new ClassPathResource("mconfig.xml");
+//        sqlSessionFactoryBean.setMapperLocations(mapperResources);
+//        sqlSessionFactoryBean.setConfigLocation(configResource);
+
+        //使用PathMatchingResourcePatternResolver可以从所有jar中找资源，并且支持文件模糊匹配
+        PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
+        sqlSessionFactoryBean.setMapperLocations(resolver.getResources("classpath*:/mybatis/mapper/*Mapper.xml"));
+
+
         sqlSessionFactoryBean.setConfigLocation(resolver.getResource("classpath:mconfig.xml"));
+
         return sqlSessionFactoryBean;
     }
 }
